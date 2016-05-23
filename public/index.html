@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My MDB</title>
+    <!--This adds a style sheet to make things look pretty-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="myMdb.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="row">
+      <div class="small-12 columns">
+        <h1>My MDB</h1>
+        <form>
+          <!--Leave a placeholder for an error to use during the AJAX call-->
+          <!--Callout alert is a component from foundation-->
+          <div id="searchError" class="callout alert hide">
+          </div>
+          <label for="search">Search for movies</label>
+          <input type="text" name="search"/>
+          <button type="submit" class="button">Search!</button>
+        </form>
+      </div>
+    </div>
+    <!--Have specific locations for -->
+    <div id="searchResults">
+    </div>
+  </body>
+</html>
