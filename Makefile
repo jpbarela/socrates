@@ -14,7 +14,7 @@ cucumber:
 	@PORT=5000 node server.js &
 # Run the ruby cucumber program
 	-cucumber
-	test.sh
+	kill_cucumber_server.sh
 
 dev:
 # nodemon automatically restarts the server as you make changes to code.
