@@ -7,7 +7,7 @@ var app = express();
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json());
+parseJson = bodyParser.json();
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
@@ -17,17 +17,24 @@ app.get('/favorites', function(req, res) {
   res.send(data);
 });
 
-app.get('favorites', function(req, res){
-  if(!req.body.name || !req.body.oid){
+app.post('/favorites', parseJson, function (req, res) {
+  if (!req.body.Title || !req.body.imdbID) {
+    res.status(422);
     res.send("Error");
-    return
-  
+    return;
+  }
+
+  id = req.body.imdbID;
   var data = JSON.parse(fs.readFileSync('./data.json'));
-  data.push(req.body);
+  movie = data.find(element => id === element.imdbID);
+  if (movie === undefined) {
+    data.push(req.body);
+  }
   fs.writeFile('./data.json', JSON.stringify(data));
   res.setHeader('Content-Type', 'application/json');
+  res.status(201);
   res.send(data);
-}});
+});
 
 function start(config) {
   app.listen(config.port);

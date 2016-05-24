@@ -9,22 +9,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <!-- This creates the Top Bar using a foundation component -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li class="menu-text">My MDB</li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <!-- Notice the menu is mainly made of links -->
+        <!-- Foundation takes care of setting up the menu as a horizontal list -->
+        <ul class="menu">
+          <!-- Add ids to the menu items to have a target for adding event handlers -->
+          <li class="active"><a href="#" id="search">Search for Movies</a></li>
+          <li><a href="#" id="favorites">See My Favorites</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="row">
       <div class="small-12 columns">
-        <h1>My MDB</h1>
-        <form>
-          <!--Leave a placeholder for an error to use during the AJAX call-->
-          <!--Callout alert is a component from foundation-->
-          <div id="searchError" class="callout alert hide">
+        <div id="searchForm">
+          <h1>Search for Movies</h1>
+          <form>
+            <!--Leave a placeholder for an error to use during the AJAX call-->
+            <!--Callout alert is a component from foundation-->
+            <div id="searchError" class="callout alert hide">
+            </div>
+            <input type="text" name="search"/>
+            <button type="submit" class="button">Search!</button>
+          </form>
+          <!--Have a specific location for the results-->
+          <div id="searchResults"></div>
+        </div>
+        <div id="favoritesSection" style="display:none">
+          <div id="favoriteError" class="callout alert hide"></div>
+          <h1>My Favorites</h1>
+          <div id="favoritesList">
           </div>
-          <label for="search">Search for movies</label>
-          <input type="text" name="search"/>
-          <button type="submit" class="button">Search!</button>
-        </form>
+        </div>
       </div>
-    </div>
-    <!--Have specific locations for -->
-    <div id="searchResults">
     </div>
   </body>
 </html>

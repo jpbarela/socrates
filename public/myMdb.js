@@ -68,6 +68,11 @@ function createResult(location, title, id){
 }
 
 $(document).ready(function() {
+  var favorites = $('#favoritesSection');
+  var favoritesLink = $('#favorites');
+  var searchForm = $('#searchForm');
+  var searchLink = $('#search');
+
   // Bind to the submit event to enable HTML 5 validations
   $('form').submit(function(event){
     event.preventDefault();
@@ -87,5 +92,34 @@ $(document).ready(function() {
       $('#searchError').show().html('<p>There was an error retreiving the search results.</p>')
     }
     );
+  });
+
+  favoritesLink.click(function(event){
+    event.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: '/favorites',
+      dataType: 'json'
+    }).then(function(data){
+      favorites.show();
+      searchForm.hide();
+      favoritesLink.parent().addClass('active');
+      searchLink.parent().removeClass('active');
+      var favoritesList = $('#favoritesList');
+      favoritesList.children().remove();
+      $.each(data, function(index, result){
+        createResult(favoritesList, result.Title, result.imdbID);
+      });
+    }, function(){
+      $('#favoriteError').show().html('<p>There was an error getting your favorites.</p>')
+    });
+  });
+
+  searchLink.click(function(event){
+    event.preventDefault();
+    searchForm.show();
+    favorites.hide();
+    searchLink.parent().addClass('active');
+    favoritesLink.parent().removeClass('active');
   });
 });
