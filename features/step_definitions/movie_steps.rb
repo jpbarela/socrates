@@ -1,5 +1,4 @@
 require './features/support/favorite_service'
-require 'byebug'
 
 Given(/^I am searching for movies$/) do
   visit("#{HOST}/")
@@ -26,7 +25,7 @@ When(/^I click on a movie$/) do
 end
 
 When(/^I make a movie a favorite$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  find('a[data-title="Star Wars: Episode VII - The Force Awakens"]').click
 end
 
 When(/^I search for a movie$/) do
@@ -55,5 +54,5 @@ Then(/^I see a list of favorite movies$/) do
 end
 
 Then(/^It is saved for future use$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content 'Star Wars: Episode VII - The Force Awakens'
 end
