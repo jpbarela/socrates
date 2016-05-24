@@ -1,3 +1,6 @@
+require './features/support/favorite_service'
+require 'byebug'
+
 Given(/^I am searching for movies$/) do
   visit("#{HOST}/")
 end
@@ -9,11 +12,13 @@ Given(/^I am viewing a movie list$/) do
 end
 
 Given(/^I have saved movies$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  response = FavoriteService.create('Star Wars: Episode IV - A New Hope', 'tt0076759')
+  expect(response.status).to be 201
 end
 
 Given(/^I am viewing a list$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit("#{HOST}/")
+  click_link 'favorites'
 end
 
 When(/^I click on a movie$/) do
@@ -30,7 +35,8 @@ When(/^I search for a movie$/) do
 end
 
 When(/^I click on show favorites$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit "#{HOST}/"
+  click_link 'favorites'
 end
 
 Then(/^I should see a list of movies$/) do
@@ -45,7 +51,7 @@ Then(/^I should see more detailed information about that movie$/) do
 end
 
 Then(/^I see a list of favorite movies$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+ expect(page).to have_content 'Star Wars: Episode IV - A New Hope'
 end
 
 Then(/^It is saved for future use$/) do

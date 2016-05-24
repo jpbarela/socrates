@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.4.0)
     builder (3.2.2)
+    byebug (9.0.3)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -26,6 +27,8 @@ GEM
       gherkin (~> 3.2.0)
     cucumber-wire (0.0.1)
     diff-lcs (1.2.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     gherkin (3.2.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -35,6 +38,7 @@ GEM
     mini_portile2 (2.0.0)
     multi_json (1.12.0)
     multi_test (0.1.2)
+    multipart-post (2.0.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     poltergeist (1.9.0)
@@ -45,6 +49,19 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+    rspec-core (3.3.1)
+      rspec-support (~> 3.3.0)
+    rspec-expectations (3.3.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-mocks (3.3.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-support (3.3.0)
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -55,10 +72,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   capybara
   capybara-screenshot
   cucumber
+  faraday
   poltergeist
+  rspec
 
 BUNDLED WITH
    1.11.2

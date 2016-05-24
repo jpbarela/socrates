@@ -9,6 +9,7 @@ Scenario:
   Then I see a list of favorite movies
 
 Scenario:
-  Given I am viewing a list
+  Given I have saved movies
+  And I am viewing a list
   When I make a movie a favorite
   Then It is saved for future use
