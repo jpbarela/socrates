@@ -1,4 +1,2 @@
 node_modules/
 .rbenv-gemsets
-# Adding data.json to the gitignore files means that only a blank file is kept in the repo.
-data.json

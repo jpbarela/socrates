@@ -1,5 +1,5 @@
 function bindResultClick() {
-  $('a[data-id]').click(function(event){
+  $('a.result-link').click(function(event){
     event.preventDefault();
     var link = $(this);
     // Toggle the detailed information if the link is clicked
@@ -11,9 +11,9 @@ function bindResultClick() {
     {
       var id = link.data('id');
       $.ajax({
-        type        : 'GET',
-        url         : 'http://www.omdbapi.com/?i='+id,
-        dataType    : 'json'
+        type: 'GET',
+        url: 'http://www.omdbapi.com/?i='+id,
+        dataType: 'json'
       }).then(function(data){
         createDetailedResult(link, data);
         // Set the new link status
@@ -22,6 +22,23 @@ function bindResultClick() {
         $('#searchError').show().html('<p>There was an error retreiving the search results.</p>')
       });
     }
+  });
+
+  $('a.favorite-link').click(function(event){
+    event.preventDefault();
+    var link = $(this);
+    var title = link.data('title')
+    $.ajax({
+      type: 'POST',
+      url: '/favorites',
+      dataType: 'json',
+      data: {Title: title, imdbID: link.data('id')}
+    }).then(function(data){
+        alert('Added ' + title + ' to your favorites list.');
+      }, function(){
+        $('#searchError').show().html(
+          '<p>There was an error saving to your favorite movie list.</p>')
+      });
   });
 }
 
@@ -54,20 +71,34 @@ function createDetailedResult(location, movie){
   )
 }
 
-function createResult(location, title, id){
-  location.append(
+function createResult(location, title, id, includeFavorite){
+  var searchResult =
     '<div class="row">' +
       '<div class="small-12 columns" data-search-result>' +
         '<div class="row">' +
-          '<div class="small-12 columns">'+
-            '<a id="movie-'+ id +'" data-id="'+ id + '" href="#">' + title + '</a>' +
-          '</div>' +
+          '<div class="small-9 columns">'+
+            '<a id="movie-'+ id +'" class="result-link" href="#" data-id="'+ id + '" >' +
+              title +
+            '</a>' +
+          '</div>';
+  if(includeFavorite){
+    searchResult +=
+      '<div class="small-3 columns text-right">' +
+        '<a href="#" class="favorite-link" data-id="'+ id +'" data-title="'+ title + '">' +
+          'Add to favorites' +
+        '</a>'+
+      '</div>'
+  }
+  searchResult +=
         '</div>' +
       '</div>' +
-    '</div>');
+    '</div>';
+  location.append(searchResult);
 }
 
 $(document).ready(function() {
+  // These jQuery nodes are used in both the searchLink and favoritesLink forms so defining them
+  // here helps show the parallel structure
   var favorites = $('#favoritesSection');
   var favoritesLink = $('#favorites');
   var searchForm = $('#searchForm');
@@ -85,7 +116,7 @@ $(document).ready(function() {
       dataType    : 'json'
     }).then(function(data){
       $.each(data.Search, function(index, result){
-        createResult(searchResults, result.Title, result.imdbID);
+        createResult(searchResults, result.Title, result.imdbID, true);
       });
       bindResultClick();
     }, function(){
@@ -108,7 +139,7 @@ $(document).ready(function() {
       var favoritesList = $('#favoritesList');
       favoritesList.children().remove();
       $.each(data, function(index, result){
-        createResult(favoritesList, result.Title, result.imdbID);
+        createResult(favoritesList, result.Title, result.imdbID, false);
       });
     }, function(){
       $('#favoriteError').show().html('<p>There was an error getting your favorites.</p>')
