@@ -27,7 +27,7 @@ function bindResultClick() {
   $('a.favorite-link').click(function(event){
     event.preventDefault();
     var link = $(this);
-    var title = link.data('title')
+    var title = link.data('title');
     $.ajax({
       type: 'POST',
       url: '/favorites',
@@ -132,10 +132,12 @@ $(document).ready(function() {
       url: '/favorites',
       dataType: 'json'
     }).then(function(data){
+      // Alternate the section shown and the active link
       favorites.show();
       searchForm.hide();
       favoritesLink.parent().addClass('active');
       searchLink.parent().removeClass('active');
+      // Populate the list
       var favoritesList = $('#favoritesList');
       favoritesList.children().remove();
       $.each(data, function(index, result){

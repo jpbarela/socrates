@@ -1,14 +1,9 @@
 # socrates
-Socrates implements My MDB a single page app to browse and save your favorite movies.
+Socrates implements My MDB a single page app to browse and save your favorite movies. You can view it at 
+[https://mymdb.herokuapp.com/](https://mymdb.herokuapp.com/).
 
 # Development
 To install all of the dependencies use ``make install``.
 
 # Testing 
-There are two layers of testing in the application. Lower level unit test are implemented in Jest while higher level 
-integration tests use cucumber-js. 
-
-To run the integration tests use ``make cucumber``.
-
-# Deploying
-
+The main group of tests is a ruby cucumber test suite. You can run the tests using ``make test``. 

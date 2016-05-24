@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="myMdb.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="myMdb.js"></script>
+    <!-- This helps the page look better on mobile devices by setting the size of view to the size of the screen -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
@@ -22,7 +23,7 @@
         <!-- Notice the menu is mainly made of links -->
         <!-- Foundation takes care of setting up the menu as a horizontal list -->
         <ul class="menu">
-          <!-- Add ids to the menu items to have a target for adding event handlers -->
+          <!-- Add IDs to the menu items to have a target for adding event handlers -->
           <li class="active"><a href="#" id="search">Search for Movies</a></li>
           <li><a href="#" id="favorites">See My Favorites</a></li>
         </ul>
@@ -30,6 +31,7 @@
     </nav>
     <div class="row">
       <div class="small-12 columns">
+        <!-- Search form section -->
         <div id="searchForm">
           <h1>Search for Movies</h1>
           <form>
@@ -43,6 +45,7 @@
           <!--Have a specific location for the results-->
           <div id="searchResults"></div>
         </div>
+        <!-- Favorite's section -->
         <div id="favoritesSection" style="display:none">
           <div id="favoriteError" class="callout alert hide"></div>
           <h1>My Favorites</h1>

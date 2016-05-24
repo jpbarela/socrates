@@ -1,4 +1,4 @@
-# Makefiles come from a time when most programs were compiled(turned into machine language) like C or iOS programs. The
+# Makefiles come from a time when most programs were compiled (turned into machine language) like C or iOS programs. The
 # make utility exists on any unix system, including Macs, so its a portable way to run tasks on most developer and
 # production systems.
 #
@@ -9,7 +9,7 @@
 run:
 	@node server.js
 
-cucumber:
+test:
 # Start a copy of the server then run the ruby cucumber tests on port 5000 not to interfere with a dev machine
 	@PORT=5000 node server.js &
 # Run the ruby cucumber program
@@ -23,7 +23,3 @@ dev:
 install:
 # Install all of dependencies listed in the package.json file
 	@npm install
-
-jest:
-# Use jest for
-	@node_modules/.bin/jest

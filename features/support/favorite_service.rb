@@ -1,5 +1,6 @@
 require 'faraday'
 
+# This class handles JSON communication with the backend
 class FavoriteService
   def self.create(name, id)
     connection.post do |request|

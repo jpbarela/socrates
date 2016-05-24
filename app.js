@@ -6,10 +6,12 @@ var path = require('path');
 var app = express();
 
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(bodyParser.urlencoded({ extended: false }))
+// Since we're not including any forms we can remove this middleware
+//app.use(bodyParser.urlencoded({ extended: false }))
 parseJson = bodyParser.json();
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+// Don't need to include the root path for the static middleware
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/favorites', function(req, res) {
   var data = fs.readFileSync('./data.json');
@@ -19,6 +21,7 @@ app.get('/favorites', function(req, res) {
 
 app.post('/favorites', parseJson, function (req, res) {
   if (!req.body.Title || !req.body.imdbID) {
+    // Add an error status to help distinguish errors
     res.status(422);
     res.send("Error");
     return;
@@ -26,12 +29,15 @@ app.post('/favorites', parseJson, function (req, res) {
 
   id = req.body.imdbID;
   var data = JSON.parse(fs.readFileSync('./data.json'));
+  // Look and see if the movie is in the system
   movie = data.find(element => id === element.imdbID);
+  // If it's not in the system add it
   if (movie === undefined) {
     data.push(req.body);
   }
   fs.writeFile('./data.json', JSON.stringify(data));
   res.setHeader('Content-Type', 'application/json');
+  // Since we created a resource set the status to 201 instead of 200
   res.status(201);
   res.send(data);
 });
